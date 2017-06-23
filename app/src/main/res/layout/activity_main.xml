@@ -3,7 +3,7 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/inputTip"
+        android:id="@+id/inputBill"
         android:layout_width="wrap_content"
         android:hint="@string/main.hint.bill"
         android:layout_height="wrap_content"
@@ -18,8 +18,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/inputTip"
-        android:layout_toRightOf="@+id/inputTip"
+        android:layout_toEndOf="@+id/inputBill"
+        android:layout_toRightOf="@+id/inputBill"
         android:text="@string/main.btn.submit" />
 
     <EditText

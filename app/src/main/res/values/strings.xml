@@ -5,4 +5,6 @@
     <string name="main.btn.increase">+</string>
     <string name="main.btn.decrease">-</string>
     <string name="main.btn.clear">Clear</string>
+
+    <string name="main_format_tip">Tip %,.1f</string>
 </resources>
