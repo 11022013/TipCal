@@ -2,7 +2,6 @@ package solmedia.ec.tipcal;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +11,8 @@ public class MainActivity extends AppCompatActivity {
 
     EditText inputBill;
     Button bntSubmit;
+    Button bntIncrease;
+    Button btnDecrease;
     EditText inputPercentage;
     TextView tvTip;
 
@@ -27,13 +28,17 @@ public class MainActivity extends AppCompatActivity {
         inputBill = (EditText) findViewById(R.id.inputBill);
         inputPercentage = (EditText) findViewById(R.id.inputPercentage);
         tvTip = (TextView) findViewById(R.id.tvTip);
+
         bntSubmit = (Button) findViewById(R.id.btnSubmit);
+        bntIncrease = (Button) findViewById(R.id.btnIncrease);
+        btnDecrease = (Button) findViewById(R.id.btnDecrease);
+
 
         bntSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String strBill = inputBill.getText().toString().trim();
-                if(!strBill.isEmpty()) {
+                if (!strBill.isEmpty()) {
                     double bill = Double.parseDouble(strBill);
                     double tip = bill * (getTipPercentage() / 100f);
                     String strTip = String.format(getString(R.string.main_format_tip), tip);
@@ -42,9 +47,38 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        bntIncrease.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleTipChange(TIP_STEP_CHANGE);
+            }
+        });
+
+        btnDecrease.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleTipChange(-TIP_STEP_CHANGE);
+            }
+        });
+    }
+
+    private void handleTipChange(int change) {
+        int tipPorcentage = getTipPercentage();
+
+        tipPorcentage += change;
+        if (tipPorcentage > 0) {
+            inputPercentage.setText(String.valueOf(tipPorcentage));
+        }
     }
 
     private int getTipPercentage() {
-        return DEFAULT_TIP_PERCENTAGE;
+        int tipPercentage = DEFAULT_TIP_PERCENTAGE;
+        String strPercentage = inputPercentage.getText().toString().trim();
+        if (!strPercentage.isEmpty()) {
+            tipPercentage = Integer.parseInt(strPercentage);
+        }
+
+        return tipPercentage;
     }
 }
