@@ -17,9 +17,11 @@ public class TipAdapter extends RecyclerView.Adapter<TipAdapter.ViewHolder> {
 
     private List<TipModel> dataSet = new ArrayList<>();
     private Context context;
+    private OnClickItemTipListener listener;
 
-    public TipAdapter(Context context) {
+    public TipAdapter(Context context, OnClickItemTipListener listener) {
         this.context = context;
+        this.listener = listener;
     }
 
     public void add(TipModel tipModel) {
@@ -43,6 +45,7 @@ public class TipAdapter extends RecyclerView.Adapter<TipAdapter.ViewHolder> {
         TipModel tipModel = dataSet.get(position);
         String template = context.getString(R.string.main_format_tip);
         holder.bind(tipModel, template);
+        holder.setOnClickListener(listener, tipModel);
     }
 
     @Override
@@ -54,10 +57,12 @@ public class TipAdapter extends RecyclerView.Adapter<TipAdapter.ViewHolder> {
 
         TextView tvItemTip;
         TextView tvItemDate;
+        View itemView;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
+            this.itemView = itemView;
 
             tvItemTip = (TextView) itemView.findViewById(R.id.tvItemTip);
             tvItemDate = (TextView) itemView.findViewById(R.id.tvItemDate);
@@ -67,6 +72,17 @@ public class TipAdapter extends RecyclerView.Adapter<TipAdapter.ViewHolder> {
             String strTip = String.format(template, tipModel.getTip());
             tvItemTip.setText(strTip);
             tvItemDate.setText(tipModel.getTimeStamp().toString());
+        }
+
+        public void setOnClickListener(
+                final OnClickItemTipListener listener
+                , final TipModel tipModel) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onClick(tipModel);
+                }
+            });
         }
     }
 }

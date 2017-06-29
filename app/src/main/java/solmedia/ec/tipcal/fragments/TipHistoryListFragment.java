@@ -1,6 +1,7 @@
 package solmedia.ec.tipcal.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,17 +10,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import solmedia.ec.tipcal.DetailActivity;
 import solmedia.ec.tipcal.R;
+import solmedia.ec.tipcal.adapter.OnClickItemTipListener;
 import solmedia.ec.tipcal.adapter.TipAdapter;
 import solmedia.ec.tipcal.models.TipModel;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TipHistoryListFragment extends Fragment implements TipHistoriListFragmentListener {
+public class TipHistoryListFragment extends Fragment
+        implements TipHistoriListFragmentListener, OnClickItemTipListener {
 
     RecyclerView recyclerView;
     private TipAdapter adapter;
+    private OnClickItemTipListener listener;
 
 
     public TipHistoryListFragment() {
@@ -43,7 +48,7 @@ public class TipHistoryListFragment extends Fragment implements TipHistoriListFr
 
     private void setupAdapter() {
         if (adapter == null) {
-            adapter = new TipAdapter(getContext());
+            adapter = new TipAdapter(getContext(), this);
         }
     }
 
@@ -60,5 +65,14 @@ public class TipHistoryListFragment extends Fragment implements TipHistoriListFr
     @Override
     public void clearList() {
         adapter.clear();
+    }
+
+    @Override
+    public void onClick(TipModel tipModel) {
+        Intent intent = new Intent(
+                getActivity(), DetailActivity.class);
+        intent.putExtra(DetailActivity.KEY_BILL, tipModel.getBill());
+        intent.putExtra(DetailActivity.KEY_TIP, tipModel.getTip());
+        startActivity(intent);
     }
 }

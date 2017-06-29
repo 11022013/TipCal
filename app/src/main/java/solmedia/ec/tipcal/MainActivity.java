@@ -42,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
         btnDecrease = (Button) findViewById(R.id.btnDecrease);
         btnClear = (Button) findViewById(R.id.btnClear);
 
-        TipHistoryListFragment fragment = (TipHistoryListFragment) getSupportFragmentManager().findFragmentById(R.id.fgHistoryTips);
+        TipHistoryListFragment fragment = (TipHistoryListFragment)
+                getSupportFragmentManager().findFragmentById(R.id.fgHistoryTips);
         fragment.setRetainInstance(true);
 
         fragmentListener = fragment;
