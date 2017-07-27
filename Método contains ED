@@ -1,0 +1,33 @@
+package pepe;
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class QueueJ{ 
+
+    public static void main(String[] args) {
+       
+        Queue<String> cola = new LinkedList<String>();
+        
+cola.add("javier");
+cola.offer("reyes");
+cola.add("acosta");
+cola.offer("Jean");
+cola.add("Axel");
+        System.out.println("El inicio de la Cola es "+cola.peek());
+ 
+   
+   //Buscar elemento en la cola
+  Queue<String> colaBusqueda=cola;
+   Boolean bandera=false;
+   String valorBuscado="Wlfrido";
+ 
+        
+    if (cola.contains(valorBuscado)){
+        System.out.println("El elemento: "+valorBuscado+" si se encuentra en la cola");
+        }
+        else{
+        System.out.println("El elemento: "+valorBuscado+" NO se encuentra en la cola");
+        }
+   
+    }   
+}
